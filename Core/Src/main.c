@@ -21,7 +21,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 
-#include "string.h" // это для функции strlen()
+#include "string.h" // СЌС‚Рѕ РґР»В¤ С„СѓРЅРєС†РёРё strlen()
 #include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
@@ -268,8 +268,8 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-//это стандартная запись для посимвольного вывода информации в интерфейс ITM в среде STM32CubeIDE
-//(должно быть в случае применения SWO)
+//СЌС‚Рѕ СЃС‚Р°РЅРґР°СЂС‚РЅР°В¤ Р·Р°РїРёСЃСЊ РґР»В¤ РїРѕСЃРёРјРІРѕР»СЊРЅРѕРіРѕ РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёРё РІ РёРЅС‚РµСЂС„РµР№СЃ ITM РІ СЃСЂРµРґРµ STM32CubeIDE
+//(РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІ СЃР»СѓС‡Р°Рµ РїСЂРёРјРµРЅРµРЅРёВ¤ SWO)
 //https://www.youtube.com/watch?v=nE-YrKpWjso&list=PL9lkEHy8EJU8a_bqiJXwGTo-uM_cPa98P
 int __io_putchar(int ch)
 {
@@ -277,9 +277,9 @@ int __io_putchar(int ch)
 	return ch;
 }
 
-//или:
+//РёР»Рё:
 
-//STM32: Отладка через SWO в STM32CubeIDE с доработкой ST-LINK
+//STM32: СњС‚Р»Р°РґРєР° С‡РµСЂРµР· SWO РІ STM32CubeIDE СЃ РґРѕСЂР°Р±РѕС‚РєРѕР№ ST-LINK
 //https://www.youtube.com/watch?v=ST_fUu6ACzE
 
 //int _write(int file, char *ptr, int len)
@@ -326,8 +326,8 @@ void StartLedTask(void const *argument) {
 		LED_State = HAL_GPIO_ReadPin(LD4_GPIO_Port, LD4_Pin);
 
 		HAL_UART_Transmit(&huart2, (uint8_t*) trans_str, strlen(trans_str),100);
-		printf("RTOS работает правильно!  11");
-		puts("RTOS работает правильно!  12");
+		printf("RTOS СЂР°Р±РѕС‚Р°РµС‚ РїСЂР°РІРёР»СЊРЅРѕ!  11");
+		puts("RTOS СЂР°Р±РѕС‚Р°РµС‚ РїСЂР°РІРёР»СЊРЅРѕ!  12");
 
 		//osDelay(200);
 		osDelay(500);
@@ -347,10 +347,10 @@ void StartBtn(void const *argument) {
 	/* Infinite loop */
 	for (;;)
 	{
-		snprintf(trans_str, 63, "RTOS работает правильно! UART\n\r");
+		snprintf(trans_str, 63, "RTOS СЂР°Р±РѕС‚Р°РµС‚ РїСЂР°РІРёР»СЊРЅРѕ! UART\n\r");
 		HAL_UART_Transmit(&huart2, (uint8_t*) trans_str, strlen(trans_str),100);
-		printf("RTOS работает правильно!  11");
-		puts("RTOS работает правильно!  12");
+		printf("RTOS СЂР°Р±РѕС‚Р°РµС‚ РїСЂР°РІРёР»СЊРЅРѕ!  11");
+		puts("RTOS СЂР°Р±РѕС‚Р°РµС‚ РїСЂР°РІРёР»СЊРЅРѕ!  12");
 
 		//printf("RTOS arbeit richtig!  21");
 		puts("RTOS arbeit richtig!  22");
