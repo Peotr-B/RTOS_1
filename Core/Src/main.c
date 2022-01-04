@@ -14,6 +14,29 @@
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
+  * 4янв22
+  * ВНИМАНИЕ!
+  * Столкнулся с проблемой при миграции stm32cube_fw_l4_v1170 на stm32cube_fw_l4_v1171 в проекте с RTOS. После обновления проекта в RTOS.ioc и компилировании main.c выдавалось 9 ошибок следующего характера:
+  * multiple definition of `SystemCoreClockUpdate'; ./Core/Src/system_stm32l4xx.o:
+  * и далее путь D:/STM32/STM32_File/RTOS_1/Debug/../Core/Src/system_stm32l4xx.c:272: first defined here
+  * С трудом нашёл вот это:
+  * https://stackoverflow.com/questions/64090730/multiple-definition-of-first-defined-here-stm32-ac6-studio
+  * Вот перевод:
+  * Это ошибки компоновщика. Вы, вероятно, делаете что - то подобное:
+  * главная.c:
+  * #include "lib.h"
+  * init.c:
+  * #include "lib.h"
+  * Когда компоновщик проверяет символы и типы в main.c и init.c, он обнаруживает, что в каждом из них были определены одни и те же символы, следовательно, ошибка. Обычно заголовочные файлы только объявляют символы, а не определяют их, но есть некоторые творческие способы использования условного кода, которые могут обойти это
+  * Т.е. производится повторное определение или включение одного и того же. В моём случае оказалось, что файл system_stm32l4xx.c находится в двух папках:
+  * D:\STM32\STM32_File\RTOS_1\Core\Src\system_stm32l4xx.c
+  * D:\STM32\STM32_File\RTOS_1\Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\Core\Src\system_stm32l4xx.c
+  * После удаления файла из Templates ошибки исчезли! Однако, после последующего обновления проекта в RTOS.ioc указанный файл в папке Templates восстановился, и вновь выдались ошибки!
+  * Удаления из папки Core\Src\ приводили к аналогичным результатам.
+  * Т.е. нужно после каждого обновления проекта в окне, вызываемом файлом *.ioc (в моём случае это RTOS.ioc) нужно удалять повторяющиеся файлы, в моём случае файл system_stm32l4xx.c. Лучше удалять из папки Templates И СЛЕДИТЬ ЗА ОПЕРАТОРАМИ В main.c, могут пропадать после такого обновления. У меня пропадали файлы:
+  * #include "string.h" // это для функции strlen()
+  * #include <stdio.h>
+  *
   ******************************************************************************
   */
 /* USER CODE END Header */
@@ -21,7 +44,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 
-#include "string.h" // это дл¤ функции strlen()
+#include "string.h" // это для функции strlen()
 #include <stdio.h>
 
 /* Private includes ----------------------------------------------------------*/
@@ -145,9 +168,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		/* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
-		/* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
 	}
   /* USER CODE END 3 */
 }
@@ -317,8 +340,9 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_StartLedTask */
-void StartLedTask(void const *argument) {
-	/* USER CODE BEGIN StartLedTask */
+void StartLedTask(void const * argument)
+{
+  /* USER CODE BEGIN StartLedTask */
 	/* Infinite loop */
 	for (;;)
 	{
@@ -332,7 +356,7 @@ void StartLedTask(void const *argument) {
 		//osDelay(200);
 		osDelay(500);
 	}
-	/* USER CODE END StartLedTask */
+  /* USER CODE END StartLedTask */
 }
 
 /* USER CODE BEGIN Header_StartBtn */
@@ -342,8 +366,9 @@ void StartLedTask(void const *argument) {
 * @retval None
 */
 /* USER CODE END Header_StartBtn */
-void StartBtn(void const *argument) {
-	/* USER CODE BEGIN StartBtn */
+void StartBtn(void const * argument)
+{
+  /* USER CODE BEGIN StartBtn */
 	/* Infinite loop */
 	for (;;)
 	{
@@ -357,7 +382,7 @@ void StartBtn(void const *argument) {
 
 		osDelay(100);
 	}
-	/* USER CODE END StartBtn */
+  /* USER CODE END StartBtn */
 }
 
 /**
@@ -413,4 +438,3 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

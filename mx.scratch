@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScratchFile FileVersion="3.0">
+  <FileVersion>3.0</FileVersion>
+  <Workspace>
+    <WorkspaceType>Single-project</WorkspaceType>
+    <WorkspacePath>D:\STM32\STM32_File\RTOS_1\</WorkspacePath>
+    <underRoot>true</underRoot>
+    <TrustZone>0</TrustZone>
+    <HAL_Driver>C:\Users\рс\STM32Cube\Repository\STM32Cube_FW_L4_V1.17.1</HAL_Driver>
+    <CMSIS>Drivers/CMSIS</CMSIS>
+    <Toolchain>STM32CubeIDE</Toolchain>
+    <IocFile>RTOS_1.ioc</IocFile>
+    <Project>
+      <ProjectName>RTOS_1</ProjectName>
+      <ProjectNature>C</ProjectNature>
+      <Secure />
+      <filestoremove>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal.c</name>
+        </file>
+        <file>
+          <name>..\Src\stm32l4xx_nucleo.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_i2c.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_i2c_ex.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_rcc.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_rcc_ex.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_flash.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_flash_ex.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_flash_ramfunc.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_gpio.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_dma.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_dma_ex.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_pwr.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_pwr_ex.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_cortex.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_exti.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_tim.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_tim_ex.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_uart.c</name>
+        </file>
+        <file>
+          <name>Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_uart_ex.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\croutine.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\event_groups.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\list.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\queue.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\tasks.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\timers.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c</name>
+        </file>
+        <file>
+          <name>Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c</name>
+        </file>
+        <file>
+          <name>Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c</name>
+        </file>
+        <file>
+          <name>Core\Src\system_stm32l4xx.c</name>
+        </file>
+      </filestoremove>
+      <sourceEntriesToRemove>
+        <sourceEntry />
+      </sourceEntriesToRemove>
+      <configs>
+        <config>
+          <name>RTOS_1</name>
+          <mainSourceRepo>Core</mainSourceRepo>
+          <sourceStructure>Advanced</sourceStructure>
+          <device>STM32L452RETxP</device>
+          <cpucore>Arm Cortex-M4</cpucore>
+          <fpu>SP</fpu>
+          <memories>
+            <memory access="xrw" name="RAM" size="160" start="0x20000000" />
+            <memory access="xrw" name="RAM2" size="32" start="0x10000000" />
+            <memory access="rx" name="FLASH" size="512" start="0x8000000" />
+          </memories>
+          <startup>C:\Users\рс\STM32Cube\Repository\STM32Cube_FW_L4_V1.17.1\Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\gcc\startup_stm32l452xx.s</startup>
+          <LinkSettings>
+            <LinkAdditionalLibs />
+          </LinkSettings>
+          <heapSize>0x200</heapSize>
+          <stackSize>0x400</stackSize>
+          <board>NUCLEO-L452RE-P</board>
+          <debugprobe>swd</debugprobe>
+          <optimization />
+          <Aincludes>
+            <include />
+          </Aincludes>
+          <Adefines />
+          <Cdefines>
+            <define>USE_HAL_DRIVER</define>
+            <define>STM32L452xx</define>
+          </Cdefines>
+          <Ldefines />
+          <Cincludes>
+            <include>Core\Inc</include>
+            <include>Drivers\STM32L4xx_HAL_Driver\Inc</include>
+            <include>Drivers\STM32L4xx_HAL_Driver\Inc\Legacy</include>
+            <include>Middlewares\Third_Party\FreeRTOS\Source\include</include>
+            <include>Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS</include>
+            <include>Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F</include>
+            <include>Drivers\CMSIS\Device\ST\STM32L4xx\Include</include>
+            <include>Drivers\CMSIS\Include</include>
+          </Cincludes>
+          <definestoremove>
+            <Adefines />
+            <Cdefines>
+              <define>USE_FULL_LL_DRIVER</define>
+              <define>MBEDTLS_CONFIG_FILE="mbedtls_config.h"</define>
+              <define>USE_FULL_ASSERT=1U</define>
+            </Cdefines>
+            <Ldefines />
+          </definestoremove>
+          <inctoremove>
+            <Aincludes>
+              <include />
+            </Aincludes>
+            <Cincludes />
+          </inctoremove>
+          <ThreadSafeSupport>
+            <ThreadSafeStrategy>4</ThreadSafeStrategy>
+          </ThreadSafeSupport>
+        </config>
+      </configs>
+      <copyAsReference>false</copyAsReference>
+      <sourceEntries>
+        <sourceEntry>
+          <name>Core</name>
+        </sourceEntry>
+        <sourceEntry>
+          <name>Drivers</name>
+        </sourceEntry>
+        <sourceEntry>
+          <name>Middlewares</name>
+        </sourceEntry>
+      </sourceEntries>
+      <Groups />
+    </Project>
+  </Workspace>
+</ScratchFile>
+
