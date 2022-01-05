@@ -6,6 +6,14 @@
   ******************************************************************************
   * @attention
   *
+  * 4янв2022
+  * @Biriuk
+  * peotr60@mail.ru
+  *
+  * RTOS_1
+  * Изучение операционной среды FreeRTOS в среде STM32CubeIDE с помощью библиотеки HAL
+  * с использованием отладочной платы NUCLEO-L452RE-P
+  *
   * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
@@ -36,6 +44,7 @@
   * Т.е. нужно после каждого обновления проекта в окне, вызываемом файлом *.ioc (в моём случае это RTOS.ioc) нужно удалять повторяющиеся файлы, в моём случае файл system_stm32l4xx.c. Лучше удалять из папки Templates И СЛЕДИТЬ ЗА ОПЕРАТОРАМИ В main.c, могут пропадать после такого обновления. У меня пропадали файлы:
   * #include "string.h" // это для функции strlen()
   * #include <stdio.h>
+  * N.B! Чтобы инклюды не пропадали, всего-навсего нужно было их вводить в графу "Private includes"!
   *
   ******************************************************************************
   */
@@ -44,11 +53,10 @@
 #include "main.h"
 #include "cmsis_os.h"
 
-#include "string.h" // это для функции strlen()
-#include <stdio.h>
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "string.h" // это для функции strlen()
+#include <stdio.h>
 
 /* USER CODE END Includes */
 
