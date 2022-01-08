@@ -6,13 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * 4СЏРЅРІ2022
+  * 4янв2022
   * @Biriuk
   * peotr60@mail.ru
   *
   * RTOS_1
-  * РР·СѓС‡РµРЅРёРµ РѕРїРµСЂР°С†РёРѕРЅРЅРѕР№ СЃСЂРµРґС‹ FreeRTOS РІ СЃСЂРµРґРµ STM32CubeIDE СЃ РїРѕРјРѕС‰СЊСЋ Р±РёР±Р»РёРѕС‚РµРєРё HAL
-  * СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј РѕС‚Р»Р°РґРѕС‡РЅРѕР№ РїР»Р°С‚С‹ NUCLEO-L452RE-P
+  * Изучение операционной среды FreeRTOS в среде STM32CubeIDE с помощью библиотеки HAL
+  * с использованием отладочной платы NUCLEO-L452RE-P
   *
   * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -22,29 +22,29 @@
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/BSD-3-Clause
   *
-  * 4СЏРЅРІ22
-  * Р’РќРРњРђРќРР•!
-  * РЎС‚РѕР»РєРЅСѓР»СЃСЏ СЃ РїСЂРѕР±Р»РµРјРѕР№ РїСЂРё РјРёРіСЂР°С†РёРё stm32cube_fw_l4_v1170 РЅР° stm32cube_fw_l4_v1171 РІ РїСЂРѕРµРєС‚Рµ СЃ RTOS. РџРѕСЃР»Рµ РѕР±РЅРѕРІР»РµРЅРёСЏ РїСЂРѕРµРєС‚Р° РІ RTOS.ioc Рё РєРѕРјРїРёР»РёСЂРѕРІР°РЅРёРё main.c РІС‹РґР°РІР°Р»РѕСЃСЊ 9 РѕС€РёР±РѕРє СЃР»РµРґСѓСЋС‰РµРіРѕ С…Р°СЂР°РєС‚РµСЂР°:
+  * 4янв22
+  * ВНИМАНИЕ!
+  * Столкнулся с проблемой при миграции stm32cube_fw_l4_v1170 на stm32cube_fw_l4_v1171 в проекте с RTOS. После обновления проекта в RTOS.ioc и компилировании main.c выдавалось 9 ошибок следующего характера:
   * multiple definition of `SystemCoreClockUpdate'; ./Core/Src/system_stm32l4xx.o:
-  * Рё РґР°Р»РµРµ РїСѓС‚СЊ D:/STM32/STM32_File/RTOS_1/Debug/../Core/Src/system_stm32l4xx.c:272: first defined here
-  * РЎ С‚СЂСѓРґРѕРј РЅР°С€С‘Р» РІРѕС‚ СЌС‚Рѕ:
+  * и далее путь D:/STM32/STM32_File/RTOS_1/Debug/../Core/Src/system_stm32l4xx.c:272: first defined here
+  * С трудом нашёл вот это:
   * https://stackoverflow.com/questions/64090730/multiple-definition-of-first-defined-here-stm32-ac6-studio
-  * Р’РѕС‚ РїРµСЂРµРІРѕРґ:
-  * Р­С‚Рѕ РѕС€РёР±РєРё РєРѕРјРїРѕРЅРѕРІС‰РёРєР°. Р’С‹, РІРµСЂРѕСЏС‚РЅРѕ, РґРµР»Р°РµС‚Рµ С‡С‚Рѕ - С‚Рѕ РїРѕРґРѕР±РЅРѕРµ:
-  * РіР»Р°РІРЅР°СЏ.c:
+  * Вот перевод:
+  * Это ошибки компоновщика. Вы, вероятно, делаете что - то подобное:
+  * главная.c:
   * #include "lib.h"
   * init.c:
   * #include "lib.h"
-  * РљРѕРіРґР° РєРѕРјРїРѕРЅРѕРІС‰РёРє РїСЂРѕРІРµСЂСЏРµС‚ СЃРёРјРІРѕР»С‹ Рё С‚РёРїС‹ РІ main.c Рё init.c, РѕРЅ РѕР±РЅР°СЂСѓР¶РёРІР°РµС‚, С‡С‚Рѕ РІ РєР°Р¶РґРѕРј РёР· РЅРёС… Р±С‹Р»Рё РѕРїСЂРµРґРµР»РµРЅС‹ РѕРґРЅРё Рё С‚Рµ Р¶Рµ СЃРёРјРІРѕР»С‹, СЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ, РѕС€РёР±РєР°. РћР±С‹С‡РЅРѕ Р·Р°РіРѕР»РѕРІРѕС‡РЅС‹Рµ С„Р°Р№Р»С‹ С‚РѕР»СЊРєРѕ РѕР±СЉСЏРІР»СЏСЋС‚ СЃРёРјРІРѕР»С‹, Р° РЅРµ РѕРїСЂРµРґРµР»СЏСЋС‚ РёС…, РЅРѕ РµСЃС‚СЊ РЅРµРєРѕС‚РѕСЂС‹Рµ С‚РІРѕСЂС‡РµСЃРєРёРµ СЃРїРѕСЃРѕР±С‹ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ СѓСЃР»РѕРІРЅРѕРіРѕ РєРѕРґР°, РєРѕС‚РѕСЂС‹Рµ РјРѕРіСѓС‚ РѕР±РѕР№С‚Рё СЌС‚Рѕ
-  * Рў.Рµ. РїСЂРѕРёР·РІРѕРґРёС‚СЃСЏ РїРѕРІС‚РѕСЂРЅРѕРµ РѕРїСЂРµРґРµР»РµРЅРёРµ РёР»Рё РІРєР»СЋС‡РµРЅРёРµ РѕРґРЅРѕРіРѕ Рё С‚РѕРіРѕ Р¶Рµ. Р’ РјРѕС‘Рј СЃР»СѓС‡Р°Рµ РѕРєР°Р·Р°Р»РѕСЃСЊ, С‡С‚Рѕ С„Р°Р№Р» system_stm32l4xx.c РЅР°С…РѕРґРёС‚СЃСЏ РІ РґРІСѓС… РїР°РїРєР°С…:
+  * Когда компоновщик проверяет символы и типы в main.c и init.c, он обнаруживает, что в каждом из них были определены одни и те же символы, следовательно, ошибка. Обычно заголовочные файлы только объявляют символы, а не определяют их, но есть некоторые творческие способы использования условного кода, которые могут обойти это
+  * Т.е. производится повторное определение или включение одного и того же. В моём случае оказалось, что файл system_stm32l4xx.c находится в двух папках:
   * D:\STM32\STM32_File\RTOS_1\Core\Src\system_stm32l4xx.c
   * D:\STM32\STM32_File\RTOS_1\Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\Core\Src\system_stm32l4xx.c
-  * РџРѕСЃР»Рµ СѓРґР°Р»РµРЅРёСЏ С„Р°Р№Р»Р° РёР· Templates РѕС€РёР±РєРё РёСЃС‡РµР·Р»Рё! РћРґРЅР°РєРѕ, РїРѕСЃР»Рµ РїРѕСЃР»РµРґСѓСЋС‰РµРіРѕ РѕР±РЅРѕРІР»РµРЅРёСЏ РїСЂРѕРµРєС‚Р° РІ RTOS.ioc СѓРєР°Р·Р°РЅРЅС‹Р№ С„Р°Р№Р» РІ РїР°РїРєРµ Templates РІРѕСЃСЃС‚Р°РЅРѕРІРёР»СЃСЏ, Рё РІРЅРѕРІСЊ РІС‹РґР°Р»РёСЃСЊ РѕС€РёР±РєРё!
-  * РЈРґР°Р»РµРЅРёСЏ РёР· РїР°РїРєРё Core\Src\ РїСЂРёРІРѕРґРёР»Рё Рє Р°РЅР°Р»РѕРіРёС‡РЅС‹Рј СЂРµР·СѓР»СЊС‚Р°С‚Р°Рј.
-  * Рў.Рµ. РЅСѓР¶РЅРѕ РїРѕСЃР»Рµ РєР°Р¶РґРѕРіРѕ РѕР±РЅРѕРІР»РµРЅРёСЏ РїСЂРѕРµРєС‚Р° РІ РѕРєРЅРµ, РІС‹Р·С‹РІР°РµРјРѕРј С„Р°Р№Р»РѕРј *.ioc (РІ РјРѕС‘Рј СЃР»СѓС‡Р°Рµ СЌС‚Рѕ RTOS.ioc) РЅСѓР¶РЅРѕ СѓРґР°Р»СЏС‚СЊ РїРѕРІС‚РѕСЂСЏСЋС‰РёРµСЃСЏ С„Р°Р№Р»С‹, РІ РјРѕС‘Рј СЃР»СѓС‡Р°Рµ С„Р°Р№Р» system_stm32l4xx.c. Р›СѓС‡С€Рµ СѓРґР°Р»СЏС‚СЊ РёР· РїР°РїРєРё Templates Р РЎР›Р•Р”РРўР¬ Р—Рђ РћРџР•Р РђРўРћР РђРњР Р’ main.c, РјРѕРіСѓС‚ РїСЂРѕРїР°РґР°С‚СЊ РїРѕСЃР»Рµ С‚Р°РєРѕРіРѕ РѕР±РЅРѕРІР»РµРЅРёСЏ. РЈ РјРµРЅСЏ РїСЂРѕРїР°РґР°Р»Рё С„Р°Р№Р»С‹:
-  * #include "string.h" // СЌС‚Рѕ РґР»СЏ С„СѓРЅРєС†РёРё strlen()
+  * После удаления файла из Templates ошибки исчезли! Однако, после последующего обновления проекта в RTOS.ioc указанный файл в папке Templates восстановился, и вновь выдались ошибки!
+  * Удаления из папки Core\Src\ приводили к аналогичным результатам.
+  * Т.е. нужно после каждого обновления проекта в окне, вызываемом файлом *.ioc (в моём случае это RTOS.ioc) нужно удалять повторяющиеся файлы, в моём случае файл system_stm32l4xx.c. Лучше удалять из папки Templates И СЛЕДИТЬ ЗА ОПЕРАТОРАМИ В main.c, могут пропадать после такого обновления. У меня пропадали файлы:
+  * #include "string.h" // это для функции strlen()
   * #include <stdio.h>
-  * N.B! Р§С‚РѕР±С‹ РёРЅРєР»СЋРґС‹ РЅРµ РїСЂРѕРїР°РґР°Р»Рё, РІСЃРµРіРѕ-РЅР°РІСЃРµРіРѕ РЅСѓР¶РЅРѕ Р±С‹Р»Рѕ РёС… РІРІРѕРґРёС‚СЊ РІ РіСЂР°С„Сѓ "Private includes"!
+  * N.B! Чтобы инклюды не пропадали, всего-навсего нужно было их вводить в графу "Private includes"!
   *
   ******************************************************************************
   */
@@ -55,7 +55,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "string.h" // СЌС‚Рѕ РґР»СЏ С„СѓРЅРєС†РёРё strlen()
+#include "string.h" // это для функции strlen()
 #include <stdio.h>
 
 /* USER CODE END Includes */
@@ -299,8 +299,8 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-//СЌС‚Рѕ СЃС‚Р°РЅРґР°СЂС‚РЅР°В¤ Р·Р°РїРёСЃСЊ РґР»СЏ РїРѕСЃРёРјРІРѕР»СЊРЅРѕРіРѕ РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёРё РІ РёРЅС‚РµСЂС„РµР№СЃ ITM РІ СЃСЂРµРґРµ STM32CubeIDE
-//(РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РІ СЃР»СѓС‡Р°Рµ РїСЂРёРјРµРЅРµРЅРёВ¤ SWO)
+//это стандартна¤ запись для посимвольного вывода информации в интерфейс ITM в среде STM32CubeIDE
+//(должно быть в случае применени¤ SWO)
 //https://www.youtube.com/watch?v=nE-YrKpWjso&list=PL9lkEHy8EJU8a_bqiJXwGTo-uM_cPa98P
 int __io_putchar(int ch)
 {
@@ -308,9 +308,9 @@ int __io_putchar(int ch)
 	return ch;
 }
 
-//РёР»Рё:
+//или:
 
-//STM32: РѕС‚Р»Р°РґРєР° С‡РµСЂРµР· SWO РІ STM32CubeIDE СЃ РґРѕСЂР°Р±РѕС‚РєРѕР№ ST-LINK
+//STM32: отладка через SWO в STM32CubeIDE с доработкой ST-LINK
 //https://www.youtube.com/watch?v=ST_fUu6ACzE
 //https://www.youtube.com/watch?v=iC2-0Md-6yg
 
@@ -350,7 +350,7 @@ void StartDefaultTask(void const * argument)
 */
 /* USER CODE END Header_StartLedTask */
 //https://texnohelp.com/freertos-stm32-lesson1/
-void StartLedTask(void const * argument)	//РїРµСЂРІР°СЏ Р·Р°РґР°С‡Р°
+void StartLedTask(void const * argument)	//первая задача
 {
   /* USER CODE BEGIN StartLedTask */
 	/* Infinite loop */
@@ -359,15 +359,15 @@ void StartLedTask(void const * argument)	//РїРµСЂРІР°СЏ Р·Р°РґР°С‡Р°
 		HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
 		LED_State = HAL_GPIO_ReadPin(LD4_GPIO_Port, LD4_Pin);
 
-		//snprintf РІ stm32:
+		//snprintf в stm32:
 		//https://eax.me/stm32-spi-flash/
-		//РџР РћР’Р•Р РРўР¬ РІР°СЂРёР°РЅС‚:
-		//snprintf(trans_str, sizeof(trans_str), "RTOS СЂР°Р±РѕС‚Р°РµС‚ РїСЂР°РІРёР»СЊРЅРѕ! UART\n\r");
+		//ПРОВЕРИТЬ вариант:
+		//snprintf(trans_str, sizeof(trans_str), "RTOS работает правильно! UART\n\r");
 		//https://istarik.ru/blog/stm32/113.html
-		snprintf(trans_str, 63, "RTOS СЂР°Р±РѕС‚Р°РµС‚ РїСЂР°РІРёР»СЊРЅРѕ! UART LED_State\n\r");
+		snprintf(trans_str, 63, "RTOS работает правильно! UART LED_State\n\r");
 		HAL_UART_Transmit(&huart2, (uint8_t*) trans_str, strlen(trans_str),100);
-		printf("RTOS СЂРµР¶РёРј LED_State  printf");
-		puts("RTOS СЂРµР¶РёРј LED_State  puts");
+		printf("RTOS режим LED_State  printf");
+		puts("RTOS режим LED_State  puts");
 
 		//osDelay(200);
 		osDelay(500);
@@ -383,9 +383,9 @@ void StartLedTask(void const * argument)	//РїРµСЂРІР°СЏ Р·Р°РґР°С‡Р°
 */
 /* USER CODE END Header_StartBtn */
 //https://texnohelp.com/stm32-freertos-lesson3/
-//РџСЂРѕРІРµСЂСЏРµРј РЅР°Р¶Р°С‚Р° РєРЅРѕРїРєР° РёР»Рё РЅРµС‚, РїСЂРё СЌС‚РѕРј, РїСЂРѕРІРµСЂСЏРµРј РІ С‚РµС‡РµРЅРёРё 50 ms РїСЂРѕРїР°Р» СЃРёРіРЅР°Р»
-//РѕС‚ РєРЅРѕРїРєРё РёР»Рё РЅРµС‚. Р•СЃР»Рё РЅРµС‚ вЂ“ РІС‹РїРѕР»РЅСЏРµРј РѕРїСЂРµРґРµР»РµРЅРЅРѕРµ РґРµР№СЃС‚РІРёРµ. РўР°РєРёРј РѕР±СЂР°Р·РѕРј
-//РјС‹ СЂРµС€РёР»Рё РїСЂРѕР±Р»РµРјСѓ РґСЂРµР±РµР·РіР° РєРѕРЅС‚Р°РєС‚РѕРІ.
+//Проверяем нажата кнопка или нет, при этом, проверяем в течении 50 ms пропал сигнал
+//от кнопки или нет. Если нет – выполняем определенное действие. Таким образом
+//мы решили проблему дребезга контактов.
 /*
 void vButton(void const * argument)
 {
@@ -395,13 +395,13 @@ for(;;)
 {
 if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_SET)
 {
-while(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_SET){vTaskDelay(50);}  //Р°РЅС‚РёРґСЂРµР±РµР·Рі
+while(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_SET){vTaskDelay(50);}  //антидребезг
 k=1;
 }
 
 if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_RESET)
 {
-while(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_RESET){vTaskDelay(50);}  //Р°РЅС‚РёРґСЂРµР±РµР·Рі
+while(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_RESET){vTaskDelay(50);}  //антидребезг
 k=0;
 }
 osDelay(100);
@@ -409,8 +409,8 @@ osDelay(100);
 // USER CODE END vButton
 }
  */
-//Р’ РґР°РЅРЅРѕР№ РѕС‡РµСЂРµРґРё РјС‹ Р±СѓРґРµРј РІРєР»СЋС‡Р°С‚СЊ СЃРІРµС‚РѕРґРёРѕРґ Рё РІС‹РєР»СЋС‡Р°С‚СЊ РµРіРѕ, РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С‚РѕРіРѕ РЅР°Р¶Р°С‚Р°
-//РєРЅРѕРїРєР° РёР»Рё РЅРµС‚
+//В данной очереди мы будем включать светодиод и выключать его, в зависимости от того нажата
+//кнопка или нет
 /*
  * USER CODE END Header_vresult
 void vresult(void const * argument)
@@ -433,15 +433,15 @@ void StartBtn(void const * argument)
 	/* Infinite loop */
 	for (;;)
 	{
-		//snprintf РІ stm32:
+		//snprintf в stm32:
 		//https://eax.me/stm32-spi-flash/
-		//РџР РћР’Р•Р РРўР¬ РІР°СЂРёР°РЅС‚:
-		//snprintf(trans_str, sizeof(trans_str), "RTOS СЂР°Р±РѕС‚Р°РµС‚ РїСЂР°РІРёР»СЊРЅРѕ! UART\n\r");
+		//ПРОВЕРИТЬ вариант:
+		//snprintf(trans_str, sizeof(trans_str), "RTOS работает правильно! UART\n\r");
 		//https://istarik.ru/blog/stm32/113.html
-		snprintf(trans_str, 63, "RTOS СЂР°Р±РѕС‚Р°РµС‚ РїСЂР°РІРёР»СЊРЅРѕ! UART StartBtn\n\r");
+		snprintf(trans_str, 63, "RTOS работает правильно! UART StartBtn\n\r");
 		HAL_UART_Transmit(&huart2, (uint8_t*) trans_str, strlen(trans_str),100);
-		printf("RTOS СЂРµР¶РёРј StartBtn printf");
-		puts("RTOS СЂРµР¶РёРј StartBtn  puts");
+		printf("RTOS режим StartBtn printf");
+		puts("RTOS режим StartBtn  puts");
 
 		//printf("RTOS arbeit richtig!  21");
 		puts("RTOS rezhim StartBtn  puts");
