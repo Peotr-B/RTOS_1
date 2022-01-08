@@ -362,9 +362,9 @@ void StartLedTask(void const * argument)	//перва€ задача
 		//snprintf в stm32:
 		//https://eax.me/stm32-spi-flash/
 		//ѕ–ќ¬≈–»“№ вариант:
-		//snprintf(trans_str, sizeof(trans_str), "RTOS работает правильно! UART\n\r");
+		snprintf(trans_str, sizeof(trans_str), "RTOS работает правильно! UART\n\r");
 		//https://istarik.ru/blog/stm32/113.html
-		snprintf(trans_str, 63, "RTOS работает правильно! UART LED_State\n\r");
+		//snprintf(trans_str, 63, "RTOS работает правильно! UART LED_State\n\r");
 		HAL_UART_Transmit(&huart2, (uint8_t*) trans_str, strlen(trans_str),100);
 		printf("RTOS режим LED_State  printf");
 		puts("RTOS режим LED_State  puts");
@@ -436,9 +436,9 @@ void StartBtn(void const * argument)
 		//snprintf в stm32:
 		//https://eax.me/stm32-spi-flash/
 		//ѕ–ќ¬≈–»“№ вариант:
-		//snprintf(trans_str, sizeof(trans_str), "RTOS работает правильно! UART\n\r");
+		snprintf(trans_str, sizeof(trans_str), "RTOS работает правильно! UART\n\r");
 		//https://istarik.ru/blog/stm32/113.html
-		snprintf(trans_str, 63, "RTOS работает правильно! UART StartBtn\n\r");
+		//snprintf(trans_str, 63, "RTOS работает правильно! UART StartBtn\n\r");
 		HAL_UART_Transmit(&huart2, (uint8_t*) trans_str, strlen(trans_str),100);
 		printf("RTOS режим StartBtn printf");
 		puts("RTOS режим StartBtn  puts");
