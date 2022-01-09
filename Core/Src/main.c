@@ -83,6 +83,8 @@ osThreadId myBtnHandle;
 /* USER CODE BEGIN PV */
 char trans_str[64] = {0,};
 int LED_State = 0;
+int T_LED = 100;
+int Btn_State = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -283,11 +285,11 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LD4_GPIO_Port, LD4_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  /*Configure GPIO pin : Btn1_Pin */
+  GPIO_InitStruct.Pin = Btn1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(Btn1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LD4_Pin */
   GPIO_InitStruct.Pin = LD4_Pin;
@@ -349,8 +351,7 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_StartLedTask */
-//https://texnohelp.com/freertos-stm32-lesson1/
-void StartLedTask(void const * argument)	//первая задача
+void StartLedTask(void const * argument)
 {
   /* USER CODE BEGIN StartLedTask */
 	/* Infinite loop */
@@ -362,15 +363,15 @@ void StartLedTask(void const * argument)	//первая задача
 		//snprintf в stm32:
 		//https://eax.me/stm32-spi-flash/
 		//ПРОВЕРИТЬ вариант:
-		snprintf(trans_str, sizeof(trans_str), "RTOS работает правильно! UART\n\r");
+		snprintf(trans_str, sizeof(trans_str), "UART: RTOS  работает правильно! \n\r");
 		//https://istarik.ru/blog/stm32/113.html
 		//snprintf(trans_str, 63, "RTOS работает правильно! UART LED_State\n\r");
 		HAL_UART_Transmit(&huart2, (uint8_t*) trans_str, strlen(trans_str),100);
-		printf("RTOS режим LED_State  printf");
-		puts("RTOS режим LED_State  puts");
+		printf("RTOS (printf): режим LED\r");
+		puts("RTOS (puts): режим LED\r");
 
 		//osDelay(200);
-		osDelay(500);
+		osDelay(T_LED);
 	}
   /* USER CODE END StartLedTask */
 }
@@ -382,71 +383,48 @@ void StartLedTask(void const * argument)	//первая задача
 * @retval None
 */
 /* USER CODE END Header_StartBtn */
-//https://texnohelp.com/stm32-freertos-lesson3/
-//Проверяем нажата кнопка или нет, при этом, проверяем в течении 50 ms пропал сигнал
-//от кнопки или нет. Если нет – выполняем определенное действие. Таким образом
-//мы решили проблему дребезга контактов.
-/*
-void vButton(void const * argument)
-{
-// USER CODE BEGIN vButton
-// Infinite loop
-for(;;)
-{
-if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_SET)
-{
-while(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_SET){vTaskDelay(50);}  //антидребезг
-k=1;
-}
-
-if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_RESET)
-{
-while(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13)==GPIO_PIN_RESET){vTaskDelay(50);}  //антидребезг
-k=0;
-}
-osDelay(100);
-}
-// USER CODE END vButton
-}
- */
-//В данной очереди мы будем включать светодиод и выключать его, в зависимости от того нажата
-//кнопка или нет
-/*
- * USER CODE END Header_vresult
-void vresult(void const * argument)
-{
- USER CODE BEGIN vresult
- Infinite loop
-for(;;)
-{
-if (k==1){HAL_GPIO_WritePin(GPIOB,GPIO_PIN_15, GPIO_PIN_SET);}
-else HAL_GPIO_WritePin(GPIOB,GPIO_PIN_15, GPIO_PIN_RESET);
-osDelay(100);
-}
-USER CODE END vresult
-}
-*/
-
 void StartBtn(void const * argument)
 {
   /* USER CODE BEGIN StartBtn */
 	/* Infinite loop */
 	for (;;)
 	{
+		//HAL_GPIO_Init(Btn1_GPIO_Port, &GPIO_InitStruct);
+		//LED_State = HAL_GPIO_ReadPin(LD4_GPIO_Port, LD4_Pin);
+
+		if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_RESET)
+			//Почему-то GPIO_PIN_RESET вместо GPIO_PIN_SET? На схеме нажатие приводит к "1"
+		{
+		while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_RESET)
+		{
+			vTaskDelay(50);
+		}  //антидребезг
+		T_LED=250;
+		//Btn_State = HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13);
 		//snprintf в stm32:
 		//https://eax.me/stm32-spi-flash/
-		//ПРОВЕРИТЬ вариант:
-		snprintf(trans_str, sizeof(trans_str), "RTOS работает правильно! UART\n\r");
-		//https://istarik.ru/blog/stm32/113.html
-		//snprintf(trans_str, 63, "RTOS работает правильно! UART StartBtn\n\r");
+		snprintf(trans_str, sizeof(trans_str), "UART: RTOS, Нажата кнопка!\n\r");
 		HAL_UART_Transmit(&huart2, (uint8_t*) trans_str, strlen(trans_str),100);
-		printf("RTOS режим StartBtn printf");
-		puts("RTOS режим StartBtn  puts");
+		printf("RTOS (printf): Нажата кнопка!\r");
+		puts("RTOS (puts): Нажата кнопка!\r");
 
 		//printf("RTOS arbeit richtig!  21");
-		puts("RTOS rezhim StartBtn  puts");
+		puts("RTOS (puts): Nazhata knopka!\r");
+		}
 
-		osDelay(100);
+		if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_SET)
+		{
+		while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_SET)
+		{
+			vTaskDelay(50);
+		}	  //антидребезг
+		T_LED=1000;
+		//Btn_State = HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13);
+		}
+
+		Btn_State = HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13);
+
+		osDelay(10);
 	}
   /* USER CODE END StartBtn */
 }
