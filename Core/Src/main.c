@@ -392,39 +392,60 @@ void StartBtn(void const * argument)
 		//HAL_GPIO_Init(Btn1_GPIO_Port, &GPIO_InitStruct);
 		//LED_State = HAL_GPIO_ReadPin(LD4_GPIO_Port, LD4_Pin);
 
-		if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_RESET)
+		if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_SET)
 			//Почему-то GPIO_PIN_RESET вместо GPIO_PIN_SET? На схеме нажатие приводит к "1"
 		{
-		while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_RESET)
-		{
-			vTaskDelay(50);
-		}  //антидребезг
-		T_LED=250;
-		//Btn_State = HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13);
-		//snprintf в stm32:
-		//https://eax.me/stm32-spi-flash/
-		snprintf(trans_str, sizeof(trans_str), "UART: RTOS, Нажата кнопка!\n\r");
-		HAL_UART_Transmit(&huart2, (uint8_t*) trans_str, strlen(trans_str),100);
-		printf("RTOS (printf): Нажата кнопка!\r");
-		puts("RTOS (puts): Нажата кнопка!\r");
+		//while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_RESET)
+		//{
+			//vTaskDelay(50);
+			//vTaskDelay(2);
+		//}  //антидребезг
 
-		//printf("RTOS arbeit richtig!  21");
-		puts("RTOS (puts): Nazhata knopka!\r");
+			vTaskDelay(50);	//антидребезг
+
+			if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_SET)
+			{
+				T_LED = 1000;
+				Btn_State = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+				//Btn_State = GPIO_PIN_RESET;
+				//Btn_State = GPIO_PIN_SET;
+
+				//snprintf в stm32:
+				//https://eax.me/stm32-spi-flash/
+				snprintf(trans_str, sizeof(trans_str),
+						"UART: RTOS, Нажата кнопка!\n\r");
+				HAL_UART_Transmit(&huart2, (uint8_t*) trans_str,
+						strlen(trans_str), 100);
+				printf("RTOS (printf): Нажата кнопка!\r");
+				puts("RTOS (puts): Нажата кнопка!\r");
+
+				//printf("RTOS arbeit richtig!  21");
+				puts("RTOS (puts): Nazhata knopka!\r");
+			}
+
 		}
 
-		if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_SET)
+		if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET)
 		{
-		while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_SET)
-		{
-			vTaskDelay(50);
-		}	  //антидребезг
-		T_LED=1000;
-		//Btn_State = HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_13);
+			/*
+			 while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_SET)
+			 {
+			 //vTaskDelay(50);
+			 vTaskDelay(2);
+			 }	  //антидребезг
+			 */
+			vTaskDelay(50);	//антидребезг
+
+			if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13) == GPIO_PIN_RESET)
+			{
+				T_LED = 250;
+				Btn_State = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+			}
+
+			//Btn_State = HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13);
 		}
 
-		Btn_State = HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13);
-
-		osDelay(10);
+			osDelay(10);
 	}
   /* USER CODE END StartBtn */
 }
