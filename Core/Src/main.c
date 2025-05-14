@@ -75,7 +75,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-UART_HandleTypeDef huart2;
+ UART_HandleTypeDef huart2;
 
 osThreadId defaultTaskHandle;
 osThreadId myLedTaskHandle;
@@ -200,6 +200,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
@@ -217,6 +218,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -389,6 +391,10 @@ void StartBtn(void const * argument)
 		if(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_SET)
 		{
 			/* Этот вариант работает неверно!====================*/
+			//Урок №3. Использование системы FreeRTOS на примере 
+			//работы кнопки и светодиода с помощью микроконтроллера STM32F103:
+			//https://texnohelp.com/stm32-freertos-lesson3/
+			
 		//while(HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)==GPIO_PIN_RESET)
 		//{
 			//vTaskDelay(50);
@@ -486,4 +492,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-

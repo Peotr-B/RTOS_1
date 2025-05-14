@@ -96,6 +96,8 @@
  http://easyelectronics.ru/tag/rtos
  41.Занимательная электроника FreeRTOS
  https://texnohelp.com/freertos/
+ 42. Урок №3. Использование системы FreeRTOS на примере работы кнопки и светодиода с помощью микроконтроллера STM32F103:
+ https://texnohelp.com/stm32-freertos-lesson3/
  
 4янв22 
 ВНИМАНИЕ! 
